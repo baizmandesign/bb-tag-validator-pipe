@@ -1,0 +1,23 @@
+clone:
+  depth: 1
+
+pipelines:
+  default:
+    - step:
+        name: Build Docker image and upload it to DockerHub.
+        script:
+          - dh_repo=${DOCKERHUB_REPO:?Missing Dockerhub repository name.}
+          - dh_pass=${DOCKERHUB_PASSWORD:?Missing Dockerhub account password.}
+          - dh_user=${DOCKERHUB_USERNAME:-baizmandesign}
+          - image="${dh_repo}:${TAG_NAME:-latest}"
+          - echo ${image}
+          - echo echo ${dh_pass} \| docker login --username \"${dh_user}\" --password-stdin
+          - echo ${dh_pass} | docker login --username "${dh_user}" --password-stdin
+          - echo docker build -t ${dh_repo} .
+          - docker build -t ${dh_repo} .
+          - echo docker tag ${image} ${dh_user}/${image}
+          - docker tag ${image} ${dh_user}/${image}
+          - echo docker push ${dh_user}/${image}
+          - docker push ${dh_user}/${image}
+        services:
+          - docker

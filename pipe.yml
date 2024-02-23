@@ -1,0 +1,14 @@
+name: tag validator
+image: baizmandesign/tag-validator:latest
+description: A Bitbucket pipe to validate that a pipeline is running on a given branch and any tag.
+category: Workflow automation
+vendor:
+  name: Baizman Design
+  website: https://baizmandesign.com
+maintainer:
+  name: Saul Baizman
+  website: https://baizmandesign.com
+tags:
+  - bitbucket-pipelines
+  - pipes
+  - bash
